@@ -10,6 +10,11 @@ import com.github.jsofteng.popularmovies.util.MovieAdapterViewHolder;
  */
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapterViewHolder> {
+
+    public interface MovieAdapterOnClickHandler{
+        void onClick(String movieTitle);
+    }
+
     @Override
     public int getItemCount() {
         return 0;
