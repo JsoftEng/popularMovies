@@ -1,8 +1,9 @@
-package com.github.jsofteng.popularmovies.util;
+package com.github.jsofteng.popularmovies;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 
 /**
  * Custom viewholder class for handling Movie objects
@@ -10,9 +11,11 @@ import android.view.View.OnClickListener;
 
 public class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
+    public ImageView mPoster;
+
     public MovieAdapterViewHolder(View view){
         super(view);
-        //TODO
+        mPoster = (ImageView) findV
     }
 
     @Override

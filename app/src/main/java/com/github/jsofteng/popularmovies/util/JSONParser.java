@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Parsing utility for handling themoviedb.org requests
  */
 public final class JSONParser {
-    static ArrayList<Movie> movies;
+    static Movie[] movies = new Movie[20];
     static final String BASE_URL = "http://image.tmdb.org/t/p/";
     static final String SIZE = "w185";
 
@@ -27,8 +27,7 @@ public final class JSONParser {
      * @return
      * @throws IOException
      */
-    public static ArrayList<Movie> parseMovieJSON(String json) throws IOException{
-        movies = new ArrayList<>();
+    public static Movie[] parseMovieJSON(String json) throws IOException{
         InputStream is = new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8));
         JsonReader reader = new JsonReader(new InputStreamReader(is));
 
@@ -67,6 +66,7 @@ public final class JSONParser {
     private static void readArray(JsonReader reader) throws IOException{
         JsonToken checkForNull;
         String name;
+        int index = 0;
 
         reader.beginArray();
         while (reader.hasNext()) {
@@ -95,10 +95,10 @@ public final class JSONParser {
                     reader.skipValue();
                 }
             }
-            movies.add(movie);
+            movies[index] = movie;
+            index++;
             reader.endObject();
         }
         reader.endArray();
     }
-
 }

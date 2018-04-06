@@ -1,9 +1,9 @@
-package com.github.jsofteng.popularmovies.util;
+package com.github.jsofteng.popularmovies;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
-import com.github.jsofteng.popularmovies.util.MovieAdapterViewHolder;
 
 /**
  *  Custom adapter class for handling movie objects
@@ -11,6 +11,11 @@ import com.github.jsofteng.popularmovies.util.MovieAdapterViewHolder;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapterViewHolder> {
 
+    private final MovieAdapterOnClickHandler mClickHandler;
+
+    public MovieAdapter(MovieAdapterOnClickHandler clickHandler){
+        mClickHandler = clickHandler;
+    }
     public interface MovieAdapterOnClickHandler{
         void onClick(String movieTitle);
     }
@@ -22,6 +27,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapterViewHolder> {
 
     @Override
     public MovieAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        int posterLayoutID = R.layout.poster_item;
+        LayoutInflater inflater = LayoutInflater.from(context);
         return null;
     }
 
