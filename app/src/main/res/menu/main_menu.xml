@@ -9,6 +9,29 @@
         android:id="@+id/menu_sort"
         android:orderInCategory="1"
         android:title="@string/menu_sort"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/sort_pop_asc"
+                android:orderInCategory="1"
+                android:title="@string/sub_pop_asc_sort"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/sort_pop_desc"
+                android:orderInCategory="2"
+                android:title="@string/sub_pop_desc_sort"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/sort_rate_asc"
+                android:orderInCategory="3"
+                android:title="@string/sub_rate_asc_sort"
+                app:showAsAction="ifRoom"/>
+            <item
+                android:id="@+id/sort_rate_desc"
+                android:orderInCategory="4"
+                android:title="@string/sub_rate_desc_sort"
+                app:showAsAction="ifRoom"/>
+        </menu>
+    </item>
 
 </menu>
