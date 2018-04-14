@@ -4,14 +4,16 @@
     <!-- Main Menu Labels -->
     <string name="menu_sort">Sort</string>
 
-        <!-- Sub Menu Labels -->
-        <string name="sub_pop_asc_sort">Popularity (A-Z)</string>
-        <string name="sub_pop_desc_sort">Popularity (Z-A)</string>
-        <string name="sub_rate_asc_sort">Rating (A-Z)</string>
-        <string name="sub_rate_desc_sort">Rating (Z-A)</string>
+    <!-- Sub Menu Labels -->
+    <string name="sub_popularity_sort">Popularity</string>
+    <string name="sub_top_rated_sort">Top Rated</string>
 
     <!-- Movie Detail Labels -->
     <string name="overview_lbl">Overview:</string>
     <string name="rating_lbl">User Rating:</string>
     <string name="release_date_lbl">Release Date:</string>
+
+    <!-- Networking -->
+    <string name="no_internet">No Internet Connection</string>
+
 </resources>

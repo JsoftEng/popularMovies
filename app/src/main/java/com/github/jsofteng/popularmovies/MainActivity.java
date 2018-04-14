@@ -1,17 +1,11 @@
 package com.github.jsofteng.popularmovies;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Debug;
-import android.preference.Preference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         if (savedInstanceState != null){
             sortBy = savedInstanceState.getString("sortBy");
         }else{
-            sortBy = Networking.SortBy.POPASC.toString();
+            sortBy = "popularity";
         }
 
         setContentView(R.layout.activity_main);
@@ -60,8 +54,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         new FetchMoviesTask().execute(sortBy);
     }
 
-
-
     @Override
     public void onClick(Movie movie) {
         launchDetailActivity(movie);
@@ -78,12 +70,17 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         @Override
         protected Movie[] doInBackground(String... params) {
             try {
-                String sortKey = params[0];
-                URL movieRequestURL = Networking.buildUrl(MainActivity.this,sortKey);
+                if(Networking.hasConnection()) {
+                    String sortKey = params[0];
+                    URL movieRequestURL = Networking.buildUrl(MainActivity.this, sortKey);
 
-                Movie[] movieArray = JSONParser.parseMovieJSON
-                        (Networking.getResponse(movieRequestURL));
-                return movieArray;
+                    Movie[] movieArray = JSONParser.parseMovieJSON
+                            (Networking.getResponse(movieRequestURL));
+                    return movieArray;
+                }else{
+                    launchNoConnectionActivity();
+                    return null;
+                }
             }catch(IOException e){
                 e.printStackTrace();
                 return null;
@@ -112,6 +109,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         startActivity(intentLaunchDetailActivity);
     }
 
+    public void launchNoConnectionActivity(){
+        Intent intentLaunchDetailActivity = new Intent(this,NoConnectionActivity.class);
+
+        startActivity(intentLaunchDetailActivity);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -125,32 +128,16 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         int id = item.getItemId();
 
         switch (id){
-            case R.id.menu_sort:
-                Toast.makeText(this,"Sort button pressed",Toast.LENGTH_SHORT)
+            case R.id.sort_popularity:
+                sortBy = "popularity";
+                new FetchMoviesTask().execute(sortBy);
+                Toast.makeText(this,"Sorted by popularity",Toast.LENGTH_SHORT)
                         .show();
                 break;
-            case R.id.sort_pop_asc:
-                sortBy = Networking.SortBy.POPASC.toString();
+            case R.id.sort_top_rated:
+                sortBy = "top_rated";
                 new FetchMoviesTask().execute(sortBy);
-                Toast.makeText(this,"Sorted by popularity (ascending)",Toast.LENGTH_SHORT)
-                        .show();
-                break;
-            case R.id.sort_pop_desc:
-                sortBy = Networking.SortBy.POPDESC.toString();
-                new FetchMoviesTask().execute(sortBy);
-                Toast.makeText(this,"Sorted by popularity (descending)",Toast.LENGTH_SHORT)
-                        .show();
-                break;
-            case R.id.sort_rate_asc:
-                sortBy = Networking.SortBy.RATEASC.toString();
-                new FetchMoviesTask().execute(sortBy);
-                Toast.makeText(this,"Sorted by rating (ascending)",Toast.LENGTH_SHORT)
-                        .show();
-                break;
-            case R.id.sort_rate_desc:
-                sortBy = Networking.SortBy.RATEDESC.toString();
-                new FetchMoviesTask().execute(sortBy);
-                Toast.makeText(this,"Sorted by rating (descending)",Toast.LENGTH_SHORT)
+                Toast.makeText(this,"Sorted by top rated",Toast.LENGTH_SHORT)
                         .show();
                 break;
         }

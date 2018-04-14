@@ -1,18 +1,14 @@
 package com.github.jsofteng.popularmovies;
 
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.jsofteng.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -56,6 +52,9 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Formats UI based on availability of movie data
+     */
     private void populateUI(){
         if(mMovie.getTitle() != null && !mMovie.getTitle().equals("")){
             mTitle.setText(mMovie.getTitle());
